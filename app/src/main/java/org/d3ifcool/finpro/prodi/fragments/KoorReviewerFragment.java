@@ -24,7 +24,7 @@ import org.d3ifcool.finpro.core.models.ProyekAkhir;
 import org.d3ifcool.finpro.core.presenters.DosenPresenter;
 import org.d3ifcool.finpro.core.presenters.ProyekAkhirPresenter;
 import org.d3ifcool.finpro.R;
-import org.d3ifcool.finpro.prodi.adapters.KoorReviewerViewAdapter;
+import org.d3ifcool.finpro.prodi.adapters.ProdiReviewerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class KoorReviewerFragment extends Fragment implements ProyekAkhirListVie
     private DosenPresenter dosenPresenter;
     private ProyekAkhirPresenter proyekAkhirPresenter;
 
-    private KoorReviewerViewAdapter koorReviewerViewAdapter;
+    private ProdiReviewerViewAdapter prodiReviewerViewAdapter;
 
     public KoorReviewerFragment() {
         // Required empty public constructor
@@ -69,7 +69,7 @@ public class KoorReviewerFragment extends Fragment implements ProyekAkhirListVie
         recyclerView = rootView.findViewById(R.id.frg_koor_judul_dsn_recyclerview);
 
         progressDialog = new ProgressDialog(getContext());
-        koorReviewerViewAdapter = new KoorReviewerViewAdapter(getContext());
+        prodiReviewerViewAdapter = new ProdiReviewerViewAdapter(getContext());
         progressDialog.setMessage(getString(R.string.text_progress_dialog));
 
         spinnerHelper = new SpinnerHelper(getContext());
@@ -85,7 +85,7 @@ public class KoorReviewerFragment extends Fragment implements ProyekAkhirListVie
         dosenPresenter.getDosen();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        koorReviewerViewAdapter.setLayoutType(R.layout.content_list_koor_dosen_reviewer);
+        prodiReviewerViewAdapter.setLayoutType(R.layout.content_list_koor_dosen_reviewer);
 
         sp_dosen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -139,9 +139,9 @@ public class KoorReviewerFragment extends Fragment implements ProyekAkhirListVie
 
         arrayListProyekAkhir.clear();
         arrayListProyekAkhir.addAll(proyekAkhirList);
-        koorReviewerViewAdapter.addItemPa(arrayListProyekAkhir);
+        prodiReviewerViewAdapter.addItemPa(arrayListProyekAkhir);
 
-        recyclerView.setAdapter(koorReviewerViewAdapter);
+        recyclerView.setAdapter(prodiReviewerViewAdapter);
         swipeRefreshLayout.setRefreshing(false);
 
         if (arrayListProyekAkhir.size() == 0) {

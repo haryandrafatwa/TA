@@ -126,7 +126,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public void onFailed(String message) {
         String failedMessage = "Id Pengguna atau Password Salah";
         Log.e("TAG", "onResponse: "+message);
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        if (message.equalsIgnoreCase("")){
+            Toast.makeText(this, failedMessage, Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

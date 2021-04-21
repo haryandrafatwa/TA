@@ -3,6 +3,7 @@ package org.d3ifcool.finpro.core.mediators.prodi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,7 @@ import com.google.android.material.navigation.NavigationView;
 import org.d3ifcool.finpro.R;
 import org.d3ifcool.finpro.activities.LoginActivity;
 import org.d3ifcool.finpro.core.helpers.SessionManager;
-import org.d3ifcool.finpro.core.mediators.interfaces.ProdiMediator;
+import org.d3ifcool.finpro.core.mediators.interfaces.prodi.ProdiMediator;
 import org.d3ifcool.finpro.core.presenters.AuthPresenter;
 import org.d3ifcool.finpro.prodi.activities.KoorPemberitahuanActivity;
 import org.d3ifcool.finpro.prodi.activities.KoorProfilActivity;
@@ -45,6 +46,14 @@ public class ToolbarMediator implements ProdiMediator {
                 break;
             case R.id.nav_view:
                 navigationView = this.appCompatActivity.findViewById(R.id.nav_view);
+                TextView tv_nama = navigationView.getHeaderView(0).findViewById(R.id.tv_nama);
+                tv_nama.setText(sessionManager.getSessionKoorNama());
+                TextView tv_role = navigationView.getHeaderView(0).findViewById(R.id.tv_role);
+                if (sessionManager.getSessionUsername().equalsIgnoreCase("admin_prodi")){
+                    tv_role.setText(R.string.title_koor_prodi);
+                }else{
+                    tv_role.setText(R.string.title_koor_lak);
+                }
                 break;
             case R.id.toolbar_menu_pemberitahuan:
                 Intent intentPemberitahuan = new Intent(appCompatActivity, KoorPemberitahuanActivity.class);

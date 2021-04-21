@@ -166,11 +166,11 @@ public class ProdiPresenter {
 
     }
 
-    public void getKoorByParameter(String koor_nip){
+    public void getKoorByParameter(String token, String koor_nip){
 
         if (connectionHelper.isConnected(context)){
             ApiService apiInterfaceKoorPa = ApiClient.getApiClient().create(ApiService.class);
-            Call<Koordinator> call = apiInterfaceKoorPa.getKoorByParameter(koor_nip);
+            Call<Koordinator> call = apiInterfaceKoorPa.getKoorByParameter("Bearer "+token,koor_nip);
             call.enqueue(new Callback<Koordinator>() {
                 @Override
                 public void onResponse(Call<Koordinator> call, Response<Koordinator> response) {

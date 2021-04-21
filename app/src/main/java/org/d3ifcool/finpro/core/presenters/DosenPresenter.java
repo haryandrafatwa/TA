@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import org.d3ifcool.finpro.R;
 import org.d3ifcool.finpro.core.helpers.ConnectionHelper;
+import org.d3ifcool.finpro.core.helpers.SessionManager;
 import org.d3ifcool.finpro.core.interfaces.objects.DosenPembimbingView;
 import org.d3ifcool.finpro.core.interfaces.objects.DosenReviewerView;
 import org.d3ifcool.finpro.core.interfaces.objects.DosenView;
@@ -43,9 +44,11 @@ public class DosenPresenter {
 
     private ConnectionHelper connectionHelper = new ConnectionHelper();
     private Context context;
+    private SessionManager sessionManager;
 
     public void initContext(Context context){
         this.context = context;
+        sessionManager = new SessionManager(context);
     }
 
     public DosenPresenter(DosenListView viewResult) {
@@ -92,9 +95,8 @@ public class DosenPresenter {
 
         if (connectionHelper.isConnected(context)){
             viewResult.showProgress();
-
             ApiService apiInterface = ApiClient.getApiClient().create(ApiService.class);
-            Call<List<Dosen>> call = apiInterface.getDosen();
+            Call<List<Dosen>> call = apiInterface.getDosen("Bearer "+sessionManager.getSessionToken());
             call.enqueue(new Callback<List<Dosen>>() {
                 @Override
                 public void onResponse(Call<List<Dosen>> call, Response<List<Dosen>> response) {
@@ -126,7 +128,7 @@ public class DosenPresenter {
             viewEditor.showProgress();
 
             ApiService apiInterfaceDosen = ApiClient.getApiClient().create(ApiService.class);
-            Call<Dosen> call = apiInterfaceDosen.createDosen(nip,nama,kode);
+            Call<Dosen> call = apiInterfaceDosen.createDosen("Bearer "+sessionManager.getSessionToken(),nip,nama,kode);
             call.enqueue(new Callback<Dosen>() {
                 @Override
                 public void onResponse(Call<Dosen> call, Response<Dosen> response) {

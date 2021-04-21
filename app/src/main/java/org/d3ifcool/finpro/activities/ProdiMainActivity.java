@@ -17,7 +17,7 @@ import org.d3ifcool.finpro.core.mediators.prodi.ToolbarMediator;
 import org.d3ifcool.finpro.core.models.Koordinator;
 import org.d3ifcool.finpro.core.presenters.ProdiPresenter;
 import org.d3ifcool.finpro.core.mediators.prodi.NavigationProdiMediator;
-import org.d3ifcool.finpro.core.mediators.interfaces.ProdiMediator;
+import org.d3ifcool.finpro.core.mediators.interfaces.prodi.ProdiMediator;
 
 public class ProdiMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ProdiView {
@@ -40,7 +40,8 @@ public class ProdiMainActivity extends AppCompatActivity
         ProdiPresenter prodiPresenter = new ProdiPresenter(this);
         prodiPresenter.initContext(this);
 
-        prodiPresenter.getKoorByParameter(prodiMediator.getSessionManager().getSessionUsername());
+        prodiPresenter.getKoorByParameter(prodiMediator.getSessionManager().getSessionToken(),
+                prodiMediator.getSessionManager().getSessionUsername());
 
         prodiMediator.Notify(R.id.nav_view);
         prodiMediator.getNavigationView().setNavigationItemSelectedListener(this);
